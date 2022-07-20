@@ -12,7 +12,6 @@ extern int currPos;
 /*FILE * yyin;*/
 extern int yylex();
 %}
-%option noyywrap
 
 %union {
   int num_val;
