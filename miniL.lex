@@ -3,7 +3,7 @@
 %{
    /* write your C code here for defination of variables and including headers */
 #include "y.tab.h"
-#include "miniL-parser.hpp"
+/*#include "miniL-parser.hpp"*/
 #include "lib.h"
 
 int currLine = 1, currPos = 1;
