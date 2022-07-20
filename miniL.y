@@ -9,7 +9,6 @@
 void yyerror(const char *msg);
 extern int currLine;
 extern int currPos;
-FILE * yyin;
 extern int yylex();
 %}
 
@@ -134,6 +133,8 @@ var:              ident {printf("var -> ident\n");}
 %% 
 
 int main(int argc, char **argv) {
+   FILE * yyin;
+
    if (argc > 1) {
         yyin = fopen(argv[1], "r");
         if (yyin == NULL) {
