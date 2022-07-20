@@ -253,3 +253,15 @@ int main(int argc, char **argv) {
 void yyerror(const char *msg) {
     printf("Error: Line %d, position %d: %s \n", currLine, currPos, msg);
 }
+
+std::string new_temp(){
+	std::string t = "t" + std::to_string(tempCount);
+	tempCount++;
+	return t;
+}
+
+std::string new_label(){
+	std::string l = "L" + std::to_string(labelCount);
+	labelCount++;
+	return l;
+}
