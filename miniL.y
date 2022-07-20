@@ -67,20 +67,29 @@ std::string new_label();
 %left MULT DIV MOD 
 
 %% 
-prog_start:	%empty
-		{
-		    if(!mainFunc){
-		    	printf("No main function declared!\n");
-			}
-		}
-		|functions {}
-		;	
+prog_start:	functions;	
 	
-functions:	  /*empty*/{printf("functions -> epsilon\n");}
-		| function functions {printf("functions -> function functions\n");}
-		;
+functions:	  /*empty*/
+			{
+				if(!mainFunc){
+					printf("No main function declared!\n");
+			}		
+			| function functions;
 
-function:	  FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY {printf("function -> FUNCTION IDENT SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY\n");}
+function:	  FUNCTION ident SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY 
+			{
+				std::string temp = "func ";
+				temp.append($2.place);
+				temp.append("\n");
+				std::string s = $2.place;
+				if(s == "main"){
+					mainFunc = true;
+				}
+				temp.append($5.code);
+				std::string decs = $5.code;
+				int decNum = 0;
+				
+			}
 		;     
 
 
