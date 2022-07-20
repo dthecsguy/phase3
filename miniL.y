@@ -178,7 +178,19 @@ vars:		  var {printf("vars -> var\n");}
 		| var COMMA vars {printf("vars -> var COMMA vars\n");}
 		;
 	
-var:              ident {printf("var -> ident\n");}
+var:              ident 
+				{
+					std::string temp;
+					std::string ident = $1.place;
+					if(funcs.find(ident) == funcs.end() && varTemp.find(ident) == varTemp.end()){
+						printf("Identifier %s is not declared.\n", ident.c_str());
+					} else if(arrSize[ident] > 1){
+						printf("Did not provide index for array identifier %s.\n", ident.c_str());
+					}
+					$$.code = strdup("");
+					$$.place = strdup(ident.c_str());
+					$$.arr = false;
+				}
                 | ident L_SQUARE_BRACKET expression R_SQUARE_BRACKET {printf("var -> ident L_SQUARE_BRACKET expression R_SQUARE_BRACKET\n");} 
                 ;
 %% 
