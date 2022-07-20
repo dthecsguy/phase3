@@ -1,4 +1,6 @@
    /* cs152-miniL */
+   
+%option noyywrap
 
 %{
    /* write your C code here for defination of variables and including headers */
