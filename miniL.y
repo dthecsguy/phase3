@@ -33,15 +33,31 @@ std::string new_label();
 %}
 
 %union {
-  int num_val;
-  char* id_val;
+  int num;
+  char* ident;
+  
+  struct S{
+      char* code;
+  }statement;
+  
+  struct E{
+      char* place;
+      char* code;
+      bool arr;
+  } expression;
 }
 
 %error-verbose
 %start	prog_start
+
+%token <ident> IDENT
+%token <num> NUMBER
+%type <expression> functions function  declarations declaration identifiers ident bool_exp
+%type <expression> relation_and_exp relation_exp comp expressions expression multiplicative_expression term vars var
+%type <statement> statements statement
+
 %token	FUNCTION BEGIN_PARAMS END_PARAMS BEGIN_LOCALS END_LOCALS BEGIN_BODY END_BODY INTEGER ARRAY OF IF THEN ENDIF ELSE WHILE FOR DO BEGINLOOP ENDLOOP CONTINUE READ WRITE TRUE FALSE SEMICOLON COLON COMMA L_PAREN R_PAREN L_SQUARE_BRACKET R_SQUARE_BRACKET ASSIGN RETURN
-%token <id_val> IDENT
-%token <num_val> NUMBER
+
 %right ASSIGN
 %left OR
 %left AND
@@ -51,7 +67,13 @@ std::string new_label();
 %left MULT DIV MOD 
 
 %% 
-prog_start:	  functions { printf("prog_start -> functions\n"); }
+prog_start:	%empty
+		{
+		    if(!mainFunc){
+		    	printf("No main function declared!\n");
+			}
+		}
+		|functions {}
 		;	
 	
 functions:	  /*empty*/{printf("functions -> epsilon\n");}
