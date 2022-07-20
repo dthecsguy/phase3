@@ -14,6 +14,7 @@ int tempCount = 0;
 int labelCount = 0;
 extern char* yytext;
 extern int currPos;
+extern int currLine;
 
 std::map<std::string, std:string> varTemp;
 std::map<std:string, int> arrSize;
@@ -24,10 +25,11 @@ std::set<std::string> reserved {"FUNCTION", "BEGIN_PARAMS", "END_PARAMS", "BEGIN
 				"WHILE", "FOR", "DO", "BEGINLOOP", "ENDLOOP", "CONTINUE", "READ", "WRITE", "TRUE", "FALSE", "SEMICOLON", "COLON", "COMMA", "L_PAREN", "R_PAREN", "L_SQUARE_BRACKET", 
 				"R_SQUARE_BRACKET", "ASSIGN", "RETURN", "prog_start", "functions", "function",  "declarations", "declaration", "identifiers", "ident", "statements", "statement", "bool_exp", 
 				"relation_and_exp", "relation_exp", "comp", "expressions", "expression", "multiplicative_expression", "term", "vars", "var"};
-void yyerror(const char *msg);
-extern int currLine;
 
-extern int yylex();
+void yyerror(const char *msg);
+int yylex();
+std::string new_temp();
+std::string new_label();
 %}
 
 %union {
