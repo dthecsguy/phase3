@@ -2,13 +2,31 @@
 
 
 %{
+#define YY_NO_UNPUT
 #include <stdio.h>
 #include <stdlib.h>
+#include <map>
+#include <string.h>
+#include <set>
 #include "lib.h"
 
+int tempCount = 0;
+int labelCount = 0;
+extern char* yytext;
+extern int currPos;
+
+std::map<std::string, std:string> varTemp;
+std::map<std:string, int> arrSize;
+bool mainFunc = false;
+
+std::set<std::string> funcs;
+std::set<std::string> reserved {"FUNCTION", "BEGIN_PARAMS", "END_PARAMS", "BEGIN_LOCALS", "END_LOCALS", "BEGIN_BODY", "END_BODY", "INTEGER", "ARRAY", "OF", "IF", "THEN", "ENDIF", "ELSE",
+				"WHILE", "FOR", "DO", "BEGINLOOP", "ENDLOOP", "CONTINUE", "READ", "WRITE", "TRUE", "FALSE", "SEMICOLON", "COLON", "COMMA", "L_PAREN", "R_PAREN", "L_SQUARE_BRACKET", 
+				"R_SQUARE_BRACKET", "ASSIGN", "RETURN", "prog_start", "functions", "function",  "declarations", "declaration", "identifiers", "ident", "statements", "statement", "bool_exp", 
+				"relation_and_exp", "relation_exp", "comp", "expressions", "expression", "multiplicative_expression", "term", "vars", "var"};
 void yyerror(const char *msg);
 extern int currLine;
-extern int currPos;
+
 extern int yylex();
 %}
 
