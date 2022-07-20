@@ -4,13 +4,13 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include "lib.h"
+
 void yyerror(const char *msg);
 extern int currLine;
 extern int currPos;
 FILE * yyin;
 extern int yylex();
-
-#include "lib.h"
 %}
 
 %union {
